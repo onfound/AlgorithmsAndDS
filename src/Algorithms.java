@@ -12,7 +12,7 @@ public class Algorithms {
             resultTemp.add(anInput);
             temp += anInput;
             if (temp > sum){
-                result.clear();
+                result.clear(); // for (int i = 0; i < size; i++)
                 result.addAll(resultTemp);
                 sum = temp;
             }
