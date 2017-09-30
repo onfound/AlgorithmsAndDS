@@ -1,26 +1,28 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Algorithms {
 
-    public static List<Integer> searchMaxSubArr(int[] input) {
+    public static List<Integer> searchMaxSubArr(List<Integer> input) {
         int sum = 0;
         int temp = 0;
-        List<Integer> result = new ArrayList<>();
-        List<Integer> resultTemp = new ArrayList<>();
-        for (int anInput : input) {
-            resultTemp.add(anInput);
+        int leftIndex = 0;
+        int currentLeftIndex = 0;
+        int rightIndex = -1;
+        for (int i = 0; i < input.size(); i++) {
+            int anInput = input.get(i);
             temp += anInput;
-            if (temp > sum){
-                result.clear(); // for (int i = 0; i < size; i++)
-                result.addAll(resultTemp);
+            if (temp > sum) {
                 sum = temp;
+                leftIndex = currentLeftIndex;
+                rightIndex = i;
             }
             if (temp < 0) {
-                resultTemp.clear();
                 temp = 0;
+                currentLeftIndex = i + 1;
             }
         }
-        return result;
+        return input.subList(leftIndex, rightIndex + 1);
     }
 }
