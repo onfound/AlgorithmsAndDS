@@ -1,3 +1,6 @@
+package Tests;
+
+import homework1.Algorithms;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,7 +21,7 @@ class AlgorithmsTest {
         List<Integer> outputListTest2 = Collections.emptyList();
 
         //Тест №3:
-        List<Integer> inputListTest3 = Arrays.asList();
+        List<Integer> inputListTest3 = Collections.emptyList();
         List<Integer> outputListTest3 = Collections.emptyList();
 
         //Тест №4:

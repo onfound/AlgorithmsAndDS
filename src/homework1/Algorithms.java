@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.Arrays;
+package homework1;
+
 import java.util.List;
 
 public class Algorithms {
