@@ -95,11 +95,11 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     public class BinaryTreeIterator implements Iterator<T> {
 
         private Node<T> current = null;
-        private List<Node<T>> list = null;
+        private Set<Node<T>> list = null;
         private Iterator<Node<T>> iterator = null;
 
         private BinaryTreeIterator() {
-            this.list = new ArrayList<>();
+            this.list = new HashSet<>();
             if (root != null)this.binaryTreeToList(root);
             iterator = list.iterator();
         }
