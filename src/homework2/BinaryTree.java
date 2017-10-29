@@ -100,7 +100,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
 
         private BinaryTreeIterator() {
             this.list = new ArrayList<>();
-            this.binaryTreeToList(root);
+            if (root != null)this.binaryTreeToList(root);
             iterator = list.iterator();
         }
 
@@ -161,13 +161,23 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     @NotNull
     @Override
     public SortedSet<T> headSet(T toElement) {
-        throw new UnsupportedOperationException();
+        BinaryTree<T> binaryTree = new BinaryTree<>();
+        binaryTreeTailSet(root, toElement, binaryTree);
+        return binaryTree;
     }
 
     @NotNull
     @Override
     public SortedSet<T> tailSet(T fromElement) {
         throw new UnsupportedOperationException();
+    }
+
+    private void binaryTreeTailSet(Node<T> start, T value, BinaryTree<T> binaryTree) {
+        if (start.left != null ) binaryTreeTailSet(start.left, value, binaryTree);
+        if (start.value.compareTo(value) < 0) {
+            if (start.right != null) binaryTreeTailSet(start.right, value, binaryTree);
+            binaryTree.add(start.value);
+        }
     }
 
     @Override
