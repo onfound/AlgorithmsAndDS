@@ -65,49 +65,42 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     private boolean searchRemoveNode(Node<T> node, T value, Node<T> parent) {
         if (node == null) return false;
         int comparison = value.compareTo(node.value);
-        if (comparison == 0) return removeNode(parent, node, value);
-        else parent = node;
+        if (comparison == 0) {
+            removeNode(parent, node);
+            size--;
+            return true;
+        } else parent = node;
         if (comparison < 0) return searchRemoveNode(node.left, value, parent);
         else return searchRemoveNode(node.right, value, parent);
     }
 
-    private boolean removeNode(Node<T> parent, Node<T> node, T value) {
-        if (parent == node){
-            if (node.left == null && node.right != null) root = node.right;
-            else if (node.left != null && node.right == null) root = node.left;
-            else if (node.left == null) root = null;
-            else {
-                root = node.right;
-                Node<T> current = node.right;
-                while (current.left != null) current = current.left;
-                current.left = parent.left;
-            }
+    private void removeNode(Node<T> parent, Node<T> node) {
+        int comparison = parent.value.compareTo(node.value);
+        if (node.left == null && node.right != null){
+            if (comparison > 0) parent.left = node.right;
+            else  if (comparison < 0) parent.right = node.right;
+            else root = node.right;
         }
-        else
-        if (parent.right == null && parent.left == null) root = null;
-        else if (parent.left != null && parent.left.value.compareTo(value) == 0) {
-            if (node.left == null && node.right != null) parent.left = node.right;
-            else if (node.left != null && node.right == null) parent.left = node.left;
-            else if (node.left == null) parent.left = null;
-            else {
-                parent.left = node.right;
-                Node<T> current = node.right;
-                while (current.left != null) current = current.left;
-                current.left = node.left;
-            }
-        } else {
-            if (node.left == null && node.right != null) parent.right = node.right;
-            else if (node.left != null && node.right == null) parent.right = node.left;
-            else if (node.left == null) parent.right = null;
-            else {
-                parent.left = node.left;
-                Node<T> current = node.left;
-                while (current.right != null) current = current.right;
-                current.right = node.right;
-            }
+        else if (node.left != null && node.right == null){
+            if (comparison > 0) parent.left = node.left;
+            else  if (comparison < 0) parent.right = node.left;
+            else root = node.left;
         }
-        size--;
-        return true;
+        else if (node.left == null){
+            if (comparison > 0) parent.left = null;
+            else if (comparison < 0) parent.right = null;
+            else root = null;
+        }
+        else {
+            if (comparison > 0) parent.left = node.right;
+            else if (comparison < 0) parent.right = node.right;
+            else root = node.right;
+            Node<T> current = node.right;
+            while (current.left != null) current = current.left;
+            if (comparison > 0) current.left = node.left;
+            else if (comparison< 0 ) current.left = node.right;
+            else current.left = parent.left;
+        }
     }
 
 
