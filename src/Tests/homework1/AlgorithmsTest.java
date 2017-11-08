@@ -1,4 +1,4 @@
-package Tests;
+package Tests.homework1;
 
 import homework1.Algorithms;
 import org.junit.jupiter.api.Test;
