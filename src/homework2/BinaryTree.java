@@ -97,9 +97,8 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
             else root = node.right;
             Node<T> current = node.right;
             while (current.left != null) current = current.left;
-            if (comparison > 0) current.left = node.left;
-            else if (comparison< 0 ) current.left = node.right;
-            else current.left = parent.left;
+            if (comparison< 0 ) current.left = node.right;
+            else current.left = node.left;
         }
     }
 
