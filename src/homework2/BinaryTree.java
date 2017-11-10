@@ -76,29 +76,20 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
 
     private void removeNode(Node<T> parent, Node<T> node) {
         int comparison = parent.value.compareTo(node.value);
-        if (node.left == null && node.right != null){
-            if (comparison > 0) parent.left = node.right;
-            else  if (comparison < 0) parent.right = node.right;
-            else root = node.right;
-        }
-        else if (node.left != null && node.right == null){
+        if (node.left != null && node.right == null) {
             if (comparison > 0) parent.left = node.left;
-            else  if (comparison < 0) parent.right = node.left;
+            else if (comparison < 0) parent.right = node.left;
             else root = node.left;
-        }
-        else if (node.left == null){
-            if (comparison > 0) parent.left = null;
-            else if (comparison < 0) parent.right = null;
-            else root = null;
-        }
-        else {
+        } else {
             if (comparison > 0) parent.left = node.right;
             else if (comparison < 0) parent.right = node.right;
             else root = node.right;
-            Node<T> current = node.right;
-            while (current.left != null) current = current.left;
-            if (comparison< 0 ) current.left = node.right;
-            else current.left = node.left;
+            if (node.left != null) {
+                Node<T> current = node.right;
+                while (current.left != null) current = current.left;
+                if (comparison < 0) current.left = node.left;
+                else current.left = node.left;
+            }
         }
     }
 
