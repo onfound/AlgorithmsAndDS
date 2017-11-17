@@ -81,15 +81,22 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
             else if (comparison < 0) parent.right = node.left;
             else root = node.left;
         } else {
-            if (comparison > 0) parent.left = node.right;
-            else if (comparison < 0) parent.right = node.right;
-            else root = node.right;
+            Node<T> current = node.right;
             if (node.left != null) {
-                Node<T> current = node.right;
-                while (current.left != null) current = current.left;
-                if (comparison < 0) current.left = node.left;
-                else current.left = node.left;
+                Node<T> parentCurrent = current;
+                while (current.left != null) {
+                    parentCurrent = current;
+                    current = current.left;
+                }
+                current.left = node.left;
+                if (current != parentCurrent) {
+                    parentCurrent.left = current.right;
+                    current.right = node.right;
+                }
             }
+            if (comparison > 0) parent.left = current;
+            else if (comparison < 0) parent.right = current;
+            else root = current;
         }
     }
 
